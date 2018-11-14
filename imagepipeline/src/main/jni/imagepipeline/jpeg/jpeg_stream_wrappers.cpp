@@ -133,6 +133,11 @@ static void osInitDestination(j_compress_ptr cinfo) {
 
   // allocate java byte array
   dest->javaBuffer = env->NewByteArray(kStreamBufferSize);
+  if (dest->javaBuffer == NULL) {
+    jpegSafeThrow(
+        (j_common_ptr) cinfo,
+        "Failed to allocate memory for java byte array.")'
+  }
   jpegJumpOnException((j_common_ptr) cinfo);
 
   // allocate the output buffer --- it will be released when done with image
